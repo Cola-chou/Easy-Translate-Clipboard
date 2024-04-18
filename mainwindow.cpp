@@ -35,8 +35,10 @@ MainWindow::MainWindow(QWidget* parent)
     connect(__translation, &Translation::translation_finished, this, &MainWindow::translation_finished);
     connect(__translation, &Translation::clipboard_data, this, &MainWindow::updateClipboardContent);
     connect(this, &MainWindow::textChanged, __translation, &Translation::translation);
-    connect(ui->textInput, &QTextEdit::textChanged, this, &MainWindow::exist_text);
     connect(this, &MainWindow::swapBtnClicked, __translation, &Translation::swapLanage);
+    
+    connect(ui->textInput, &QTextEdit::textChanged, this, &MainWindow::exist_text);
+
     __trayicon->showTrayIcon();
 }
 
@@ -64,9 +66,22 @@ void MainWindow::translation_finished(const QString& text) {
     ui->textOutPut->setPlainText(text);
 }
 
-void  MainWindow::exist_text() {
+void MainWindow::exist_text() {
     QString text = ui->textInput->toPlainText();
     emit textChanged(text);
+}
+
+void MainWindow::closeEvent(QCloseEvent* event) {
+    if (this->isVisible()) {
+        // 如果窗口可见，隐藏主窗口并阻止事件进一步传播  
+        this->hide();
+        event->ignore();
+        __trayicon->setflags(false);
+    }
+    else {
+        // 否则，允许窗口关闭  
+        event->accept();
+    }
 }
 
 

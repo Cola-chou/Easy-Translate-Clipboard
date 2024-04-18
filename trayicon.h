@@ -13,6 +13,7 @@ class TrayIcon : public QObject
 public:
     explicit TrayIcon(QObject* parent = nullptr);
     void showTrayIcon();
+    void setflags(bool);
 
 signals:
     void listen_clipboard_toggled(bool);
