@@ -81,3 +81,8 @@ void TrayIcon::onCloseWindow() {
     emit close_window();
 }
 
+void TrayIcon::setflags(bool f)
+{
+    flags = f;
+}
+

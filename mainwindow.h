@@ -28,7 +28,7 @@ public:
     ~MainWindow();
 protected:
 //    void resizeEvent(QResizeEvent *event) override;
-
+    void closeEvent(QCloseEvent* event) override;
 private slots:
     // 响应交换按钮的槽函数
     void on_btnChange_clicked();
