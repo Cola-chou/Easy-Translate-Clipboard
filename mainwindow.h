@@ -30,9 +30,11 @@ protected:
 //    void resizeEvent(QResizeEvent *event) override;
 
 private slots:
+    // 响应交换按钮的槽函数
     void on_btnChange_clicked();
-
+    // 响应剪切板内容更新的槽函数
     void updateClipboardContent(const QString&);
+    // 
     void translation_finished(const QString&);
     void exist_text();
 

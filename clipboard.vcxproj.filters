@@ -65,6 +65,9 @@
     <ClCompile Include="Network.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Settings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="clipboardmonitor.h">
@@ -106,5 +109,10 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include=".\clipboard_resource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Settings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

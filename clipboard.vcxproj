@@ -206,6 +206,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Network.cpp" />
+    <ClCompile Include="Settings.cpp" />
     <ClCompile Include="Translation.cpp" />
     <ClCompile Include="TrayIcon.cpp" />
     <ClCompile Include="clipboardmonitor.cpp" />
@@ -250,6 +251,9 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Network.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Settings.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <Import Project="$(QtMsBuild)\qt.targets" Condition="Exists('$(QtMsBuild)\qt.targets')" />
