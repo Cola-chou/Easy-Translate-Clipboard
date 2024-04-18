@@ -85,6 +85,9 @@
     <QtMoc Include="Network.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="Settings.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="debug\moc_predefs.h.cbt">
@@ -109,10 +112,5 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include=".\clipboard_resource.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Settings.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

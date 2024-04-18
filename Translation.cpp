@@ -42,8 +42,8 @@ void Translation::listen_clipboard_toggled(bool opt)
 
 void Translation::initLangMap()
 {
-    __langmap.insert(ZH_CN, {QString::fromLocal8Bit("中文"), ZH_CN});
-    __langmap.insert(EN_US, { QString::fromLocal8Bit("英语(US)"), EN_US});
+    __langmap.insert(ZH_CN, {u8"中文", ZH_CN});
+    __langmap.insert(EN_US, { u8"英语(US)", EN_US});
     __lsrc = __langmap.value(Translation::ZH_CN);
     __ldest = __langmap.value(Translation::EN_US);
 }
