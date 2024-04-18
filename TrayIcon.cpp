@@ -10,14 +10,15 @@ TrayIcon::TrayIcon(QObject*parent) : QObject(parent)
     // 创建菜单事件
     __actShowWindow = new QAction("打开主界面", this);
     __actListenClipboard = new QAction("监听剪贴板", this);
-    __actListenClipboard->setCheckable(true);
-    __actListenClipboard->setChecked(true);
+    __actSettings = new QAction("设置", this);
+    //__actListenClipboard->setCheckable(true);
+    //__actListenClipboard->setChecked(true);
     __actExit = new QAction("退出", this);
     // 创建菜单
     __trayMenu = new QMenu(nullptr);
     // 新增一个菜单
     __trayMenu->addAction(__actShowWindow);
-    __trayMenu->addAction(__actListenClipboard);
+    __trayMenu->addAction(__actSettings);
     // 增加分割符
     __trayMenu->addSeparator();
     // 新增一个菜单
@@ -29,6 +30,7 @@ TrayIcon::TrayIcon(QObject*parent) : QObject(parent)
     connect(__actShowWindow, &QAction::triggered,this, &TrayIcon::onShowWindow);
     connect(__actExit, &QAction::triggered,this, &TrayIcon::onCloseWindow);
     connect(__actListenClipboard, &QAction::toggled, this, &TrayIcon::onListenClipboardToggled);
+    connect(__actSettings, &QAction::triggered, this, &TrayIcon::onSettings);
 }
 
 void TrayIcon::showTrayIcon() {
@@ -81,8 +83,13 @@ void TrayIcon::onCloseWindow() {
     emit close_window();
 }
 
+void TrayIcon::onSettings()
+{
+    emit open_setting();
+}
+
+
 void TrayIcon::setflags(bool f)
 {
     flags = f;
 }
-

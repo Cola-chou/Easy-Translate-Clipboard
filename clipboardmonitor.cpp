@@ -13,7 +13,7 @@ void ClipboardMonitor::clipboardDataChanged()
 {
     if (clipboard->mimeData()->hasText()) {
         QString text = clipboard->mimeData()->text();
-        emit clipboardChanged(text);
+        emit clipboard_changed(text);
     }
 }
 
