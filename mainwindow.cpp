@@ -48,6 +48,7 @@ MainWindow::~MainWindow()
 void MainWindow::updateClipboardContent(const QString& text)
 {
     ui->textInput->setText(text);
+    emit __trayicon->show_window();
 }
 
 void MainWindow::on_btnChange_clicked()
