@@ -10,7 +10,7 @@ class ClipboardMonitor : public QObject
     Q_OBJECT
 public:
     explicit ClipboardMonitor(QObject *parent = nullptr);
-
+    void listening(bool);
 signals:
     void clipboardChanged(const QString &text);
 
@@ -19,8 +19,5 @@ private slots:
 
 private:
     QClipboard *clipboard;
-public:
-    void startListening();
-    void stopListening();
 };
 #endif // CLIPBOARDMONITOR_H

@@ -2,9 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "clipboardmonitor.h"
 #include "ui_mainwindow.h"
-#include "QUrlQuery"
+#include "Translation.h"
+#include "TrayIcon.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -30,25 +30,19 @@ protected:
 //    void resizeEvent(QResizeEvent *event) override;
 
 private slots:
-    void updateClipboardContent(const QString &text);
-    void translateText(const QString &text);
-    QString extractTranslatedText(const QByteArray &responseData);
-    void IniComboBox();
-
-    void on_cmbInput_currentIndexChanged(int index);
-
-    void on_cmbOutput_currentIndexChanged(int index);
-
     void on_btnChange_clicked();
 
-    void onListenClipboardToggled(bool checked);
+    void updateClipboardContent(const QString&);
+    void translation_finished(const QString&);
+    void translation_error(const QString&);
+    void exist_text();
+
+signals:
+    void textChanged(const QString& text);
 
 private:
     Ui::MainWindow *ui;
-    Language l_EN,l_ZH;
-    ClipboardMonitor *clipboardMonitor;
-    QNetworkAccessManager *networkManager;
-    QUrl  createQueryUrl(QString text);
-    void toTray();
+    Translation* __translation;
+    TrayIcon* __trayicon;
 };
 #endif // MAINWINDOW_H
