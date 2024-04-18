@@ -21,6 +21,7 @@ void Network::net_translate(const QString& text, int from, int to) {
     case Translation::EN_US:
         query.addQueryItem("tl", "en");
         break;
+    default: break;
     }
     query.addQueryItem("dt", "t");
     query.addQueryItem("q", text);
@@ -37,10 +38,10 @@ void Network::net_translate(const QString& text, int from, int to) {
 
             QString translatedText = net_translate_impl(data);
             
-            emit net_translate_finished(translatedText);
+            emit net_translate_finished(translatedText, NETWORK_SUCCESS);
         }
         else {
-            emit net_translate_error(reply->errorString());
+            emit net_translate_finished(reply->errorString(), NETWORK_ERROR);
         }
         reply->deleteLater();
     });

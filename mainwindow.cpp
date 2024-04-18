@@ -33,19 +33,16 @@ MainWindow::MainWindow(QWidget* parent)
     connect(__trayicon, &TrayIcon::hide_window, this, &MainWindow::hide);
     connect(__trayicon, &TrayIcon::listen_clipboard_toggled, __translation, &Translation::listen_clipboard_toggled);
     connect(__translation, &Translation::translation_finished, this, &MainWindow::translation_finished);
-    connect(__translation, &Translation::translation_error, this, &MainWindow::translation_error);
     connect(__translation, &Translation::clipboard_data, this, &MainWindow::updateClipboardContent);
     connect(this, &MainWindow::textChanged, __translation, &Translation::translation);
     connect(ui->textInput, &QTextEdit::textChanged, this, &MainWindow::exist_text);
-
+    connect(this, &MainWindow::swapBtnClicked, __translation, &Translation::swapLanage);
     __trayicon->showTrayIcon();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete __trayicon;
-    delete __translation;
 }
 
 void MainWindow::updateClipboardContent(const QString& text)
@@ -58,13 +55,11 @@ void MainWindow::on_btnChange_clicked()
     int tmpIndex = ui->cmbOutput->currentIndex();
     ui->cmbOutput->setCurrentIndex(ui->cmbInput->currentIndex());
     ui->cmbInput->setCurrentIndex(tmpIndex);
+    QString text = ui->textInput->toPlainText();
+    emit swapBtnClicked(text);
 }
 
 void MainWindow::translation_finished(const QString& text) {
-    ui->textOutPut->setPlainText(text);
-}
-
-void MainWindow::translation_error(const QString& text) {
     ui->textOutPut->setPlainText(text);
 }
 

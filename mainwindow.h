@@ -34,11 +34,11 @@ private slots:
 
     void updateClipboardContent(const QString&);
     void translation_finished(const QString&);
-    void translation_error(const QString&);
     void exist_text();
 
 signals:
     void textChanged(const QString& text);
+    void swapBtnClicked(const QString& text);
 
 private:
     Ui::MainWindow *ui;
