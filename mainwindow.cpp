@@ -1,12 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QNetworkAccessManager>
 #include <QNetworkReply>
-#include <QJsonDocument>
 #include <QJsonObject>
-#include "QJsonArray"
-#include "QUrlQuery"
-#include "QSystemTrayIcon"
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)

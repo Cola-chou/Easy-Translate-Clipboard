@@ -30,9 +30,9 @@ protected:
 //    void resizeEvent(QResizeEvent *event) override;
     void closeEvent(QCloseEvent* event) override;
 private slots:
-    // ÏìÓ¦½»»»°´Å¥µÄ²Ûº¯Êı
+    // å“åº”äº¤æ¢æŒ‰é’®çš„æ§½å‡½æ•°
     void on_btnChange_clicked();
-    // ÏìÓ¦¼ôÇĞ°åÄÚÈİ¸üĞÂµÄ²Ûº¯Êı
+    // å“åº”å‰ªåˆ‡æ¿å†…å®¹æ›´æ–°çš„æ§½å‡½æ•°
     void updateClipboardContent(const QString&);
     // 
     void translation_finished(const QString&);
