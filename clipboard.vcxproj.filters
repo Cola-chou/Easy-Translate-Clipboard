@@ -68,9 +68,6 @@
     <ClCompile Include="Settings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Singleton.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="clipboardmonitor.h">
@@ -86,9 +83,6 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Network.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="Settings.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -117,7 +111,7 @@
     <ResourceCompile Include=".\clipboard_resource.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Singleton.hpp">
+    <ClInclude Include="Settings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

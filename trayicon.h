@@ -20,21 +20,18 @@ signals:
     void show_window();
     void close_window();
     void hide_window();
-    void open_setting();
 
 public slots:
     void onTrayIconActivated(QSystemTrayIcon::ActivationReason reason);
     void onListenClipboardToggled(bool);
     void onShowWindow();
     void onCloseWindow();
-    void onSettings();
 private:
     QSystemTrayIcon* __trayIcon;
     QMenu* __trayMenu;
     QAction* __actShowWindow;
     QAction* __actListenClipboard;
     QAction* __actExit;
-    QAction* __actSettings;
     bool  flags;
 };
 

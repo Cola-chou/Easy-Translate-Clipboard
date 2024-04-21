@@ -15,9 +15,9 @@ public:
 
 public slots:
     void translation(const QString& text);
-    void netTranslationFinished(const QString& text, int netstatus);
-    void listenClipboardToggled(bool);    
-    void clipboardExistData(const QString& text);
+    void net_translation_finished(const QString& text, int netstatus);
+    void listen_clipboard_toggled(bool);    
+    void clipboard_exist_data(const QString& text);
     void swapLanage(const QString& text);
 
 signals:

@@ -5,7 +5,6 @@
 #include "ui_mainwindow.h"
 #include "Translation.h"
 #include "TrayIcon.h"
-#include "Settings.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -36,17 +35,16 @@ private slots:
     // 响应剪切板内容更新的槽函数
     void updateClipboardContent(const QString&);
     // 
-    void translationFinished(const QString&);
-    void existText();
+    void translation_finished(const QString&);
+    void exist_text();
 
 signals:
-    void text_changed(const QString& text);
-    void swap_btn_clicked(const QString& text);
+    void textChanged(const QString& text);
+    void swapBtnClicked(const QString& text);
 
 private:
     Ui::MainWindow *ui;
     Translation* __translation;
     TrayIcon* __trayicon;
-    Settings* __settings;
 };
 #endif // MAINWINDOW_H

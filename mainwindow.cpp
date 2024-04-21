@@ -18,7 +18,6 @@ MainWindow::MainWindow(QWidget* parent)
 
     __trayicon = new TrayIcon(this);
     __translation = new Translation(this);
-    __settings = new Settings(this);
 
     __translation->initComboBox(ui->cmbInput, Translation::EN_US);
     __translation->initComboBox(ui->cmbOutput, Translation::ZH_CN);
@@ -27,14 +26,13 @@ MainWindow::MainWindow(QWidget* parent)
     connect(__trayicon, &TrayIcon::close_window, QApplication::instance(), &QApplication::quit);
     //connect(__trayicon, &TrayIcon::close_window, this, &MainWindow::close);
     connect(__trayicon, &TrayIcon::hide_window, this, &MainWindow::hide);
-    connect(__trayicon, &TrayIcon::listen_clipboard_toggled, __translation, &Translation::listenClipboardToggled);
-    connect(__trayicon, &TrayIcon::open_setting, __settings, &Settings::show);
-    connect(__translation, &Translation::translation_finished, this, &MainWindow::translationFinished);
+    connect(__trayicon, &TrayIcon::listen_clipboard_toggled, __translation, &Translation::listen_clipboard_toggled);
+    connect(__translation, &Translation::translation_finished, this, &MainWindow::translation_finished);
     connect(__translation, &Translation::clipboard_data, this, &MainWindow::updateClipboardContent);
-    connect(this, &MainWindow::text_changed, __translation, &Translation::translation);
-    connect(this, &MainWindow::swap_btn_clicked, __translation, &Translation::swapLanage);
+    connect(this, &MainWindow::textChanged, __translation, &Translation::translation);
+    connect(this, &MainWindow::swapBtnClicked, __translation, &Translation::swapLanage);
     
-    connect(ui->textInput, &QTextEdit::textChanged, this, &MainWindow::existText);
+    connect(ui->textInput, &QTextEdit::textChanged, this, &MainWindow::exist_text);
 
     __trayicon->showTrayIcon();
 }
@@ -42,7 +40,6 @@ MainWindow::MainWindow(QWidget* parent)
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete __settings;
 }
 
 void MainWindow::updateClipboardContent(const QString& text)
@@ -57,16 +54,16 @@ void MainWindow::on_btnChange_clicked()
     ui->cmbOutput->setCurrentIndex(ui->cmbInput->currentIndex());
     ui->cmbInput->setCurrentIndex(tmpIndex);
     QString text = ui->textInput->toPlainText();
-    emit swap_btn_clicked(text);
+    emit swapBtnClicked(text);
 }
 
-void MainWindow::translationFinished(const QString& text) {
+void MainWindow::translation_finished(const QString& text) {
     ui->textOutPut->setPlainText(text);
 }
 
-void MainWindow::existText() {
+void MainWindow::exist_text() {
     QString text = ui->textInput->toPlainText();
-    emit text_changed(text);
+    emit textChanged(text);
 }
 
 void MainWindow::closeEvent(QCloseEvent* event) {

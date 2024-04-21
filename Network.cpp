@@ -9,7 +9,7 @@ Network::Network(QObject* parent) {
     __url = QString("https://translate.googleapis.com/translate_a/single");
 }
 
-void Network::netTranslate(const QString& text, int from, int to) {
+void Network::net_translate(const QString& text, int from, int to) {
     QUrlQuery query;
     query.addQueryItem("client", "gtx");
     query.addQueryItem("sl", "auto");
@@ -36,7 +36,7 @@ void Network::netTranslate(const QString& text, int from, int to) {
         if (reply->error() == QNetworkReply::NoError) {
             QByteArray data = reply->readAll();
 
-            QString translatedText = netTranslateImpl(data);
+            QString translatedText = net_translate_impl(data);
             
             emit net_translate_finished(translatedText, NETWORK_SUCCESS);
         }
@@ -48,7 +48,7 @@ void Network::netTranslate(const QString& text, int from, int to) {
     
 }
 
-QString Network::netTranslateImpl(const QByteArray& resp) {
+QString Network::net_translate_impl(const QByteArray& resp) {
 
     // 解析 JSON 响应
     QJsonDocument doc = QJsonDocument::fromJson(resp);
