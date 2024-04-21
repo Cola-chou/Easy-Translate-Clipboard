@@ -32,7 +32,7 @@
     <PlatformToolset>v143</PlatformToolset>
     <OutputDirectory>debug\</OutputDirectory>
     <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
-    <CharacterSet>NotSet</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
     <ConfigurationType>Application</ConfigurationType>
     <IntermediateDirectory>debug\</IntermediateDirectory>
     <PrimaryOutput>clipboard</PrimaryOutput>
@@ -149,7 +149,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4577;4467;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <ObjectFileName>debug\</ObjectFileName>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DEPRECATED_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -207,6 +207,7 @@
   <ItemGroup>
     <ClCompile Include="Network.cpp" />
     <ClCompile Include="Settings.cpp" />
+    <ClCompile Include="Singleton.cpp" />
     <ClCompile Include="Translation.cpp" />
     <ClCompile Include="TrayIcon.cpp" />
     <ClCompile Include="clipboardmonitor.cpp" />
@@ -253,7 +254,10 @@
     <QtMoc Include="Network.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Settings.h" />
+    <QtMoc Include="Settings.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Singleton.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <Import Project="$(QtMsBuild)\qt.targets" Condition="Exists('$(QtMsBuild)\qt.targets')" />

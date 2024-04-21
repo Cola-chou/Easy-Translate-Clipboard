@@ -12,7 +12,7 @@ public:
     explicit ClipboardMonitor(QObject *parent = nullptr);
     void listening(bool);
 signals:
-    void clipboardChanged(const QString &text);
+    void clipboard_changed(const QString &text);
 
 private slots:
     void clipboardDataChanged();

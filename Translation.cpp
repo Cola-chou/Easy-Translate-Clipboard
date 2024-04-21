@@ -7,9 +7,9 @@ Translation::Translation(QObject* parent) : QObject(parent)
     __network = new Network(this);
     initLangMap();
 
-    connect(__network, &Network::net_translate_finished, this, &Translation::net_translation_finished);
-    connect(__clipboardMonitor, &ClipboardMonitor::clipboardChanged, this, &Translation::translation);
-    connect(__clipboardMonitor, &ClipboardMonitor::clipboardChanged, this, &Translation::clipboard_exist_data);
+    connect(__network, &Network::net_translate_finished, this, &Translation::netTranslationFinished);
+    connect(__clipboardMonitor, &ClipboardMonitor::clipboard_changed, this, &Translation::translation);
+    connect(__clipboardMonitor, &ClipboardMonitor::clipboard_changed, this, &Translation::clipboardExistData);
 }
 
 void Translation::initComboBox(QComboBox* box, int index) const
@@ -21,29 +21,29 @@ void Translation::initComboBox(QComboBox* box, int index) const
 
 void Translation::translation(const QString& text)
 {
-    __network->net_translate(text, __lsrc.code, __ldest.code);
+    __network->netTranslate(text, __lsrc.code, __ldest.code);
 }
 
-void Translation::net_translation_finished(const QString& text, int netstatus)
+void Translation::netTranslationFinished(const QString& text, int netstatus)
 {
     emit translation_finished(text);
 }
 
-void Translation::clipboard_exist_data(const QString& text)
+void Translation::clipboardExistData(const QString& text)
 {
     emit clipboard_data(text);
 }
 
 
-void Translation::listen_clipboard_toggled(bool opt)
+void Translation::listenClipboardToggled(bool opt)
 {
     __clipboardMonitor->listening(opt);
 }
 
 void Translation::initLangMap()
 {
-    __langmap.insert(ZH_CN, {QString::fromLocal8Bit("中文"), ZH_CN});
-    __langmap.insert(EN_US, { QString::fromLocal8Bit("英语(US)"), EN_US});
+    __langmap.insert(ZH_CN, {u8"中文", ZH_CN});
+    __langmap.insert(EN_US, { u8"英语(US)", EN_US});
     __lsrc = __langmap.value(Translation::ZH_CN);
     __ldest = __langmap.value(Translation::EN_US);
 }
