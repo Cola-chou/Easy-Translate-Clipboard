@@ -19,17 +19,31 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Network.cpp \
+    Settings.cpp \
+    Singleton.cpp \
+    Translation.cpp \
     TrayIcon.cpp \
     clipboardmonitor.cpp \
+    contextmenumanager.cpp \
+    floatingball.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    Network.h \
+    Settings.h \
+    Singleton.hpp \
+    Translation.h \
     clipboardmonitor.h \
+    contextmenumanager.h \
+    floatingball.h \
     mainwindow.h \
-    trayicon.h
+    trayicon.h \
+    ui_mainwindow.h
 
 FORMS += \
+    floatingball.ui \
     mainwindow.ui
 
 # Default rules for deployment.
@@ -38,6 +52,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
+    res.qrc \
     res.qrc
 
 
@@ -57,3 +72,6 @@ QMAKE_TARGET_PRODUCT = "随译"
 #程序语言
 #0x0800代表和系统当前语言一致
 RC_LANG = 0x0800
+
+DISTFILES += \
+    README.md

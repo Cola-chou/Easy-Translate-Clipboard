@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/images">
         <file>icons/aa.ico</file>
+        <file>floatingballImage/linux.png</file>
     </qresource>
 </RCC>

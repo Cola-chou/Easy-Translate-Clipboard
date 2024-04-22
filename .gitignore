@@ -12,3 +12,16 @@
 /clipboard_resource.rc
 /ui_mainwindow.h
 /.vs
+# Ignore debug, build, release, and x64 directories
+debug/
+build/
+release/
+x64/
+
+# Ignore specific project files
+clipboard.vcxproj
+clipboard.vcxproj.filters
+clipboard.vcxproj.user
+clipboard.qtvscr
+clipboard.v12.suo
+
