@@ -9,7 +9,7 @@ Network::Network(QObject* parent) {
     __url = QString("https://translate.googleapis.com/translate_a/single");
 }
 
-void Network::net_translate(const QString& text, int from, int to) {
+void Network::netTranslate(const QString& text, int from, int to) {
     QUrlQuery query;
     query.addQueryItem("client", "gtx");
     query.addQueryItem("sl", "auto");
@@ -29,14 +29,14 @@ void Network::net_translate(const QString& text, int from, int to) {
     QUrl url(__url);
     url.setQuery(query);
 
-    // ÍøÂçÍ¨ĞÅ
+    // ç½‘ç»œé€šä¿¡
     QNetworkRequest request(url);
     QNetworkReply* reply = __networkManager->get(request);
     connect(reply, &QNetworkReply::finished, [this, reply]() {
         if (reply->error() == QNetworkReply::NoError) {
             QByteArray data = reply->readAll();
 
-            QString translatedText = net_translate_impl(data);
+            QString translatedText = netTranslateImpl(data);
             
             emit net_translate_finished(translatedText, NETWORK_SUCCESS);
         }
@@ -48,40 +48,40 @@ void Network::net_translate(const QString& text, int from, int to) {
     
 }
 
-QString Network::net_translate_impl(const QByteArray& resp) {
+QString Network::netTranslateImpl(const QByteArray& resp) {
 
-    // ½âÎö JSON ÏìÓ¦
+    // è§£æ JSON å“åº”
     QJsonDocument doc = QJsonDocument::fromJson(resp);
 
-    // ¼ì²éÏìÓ¦ÊÇ·ñÊÇÒ»¸öÊı×é
+    // æ£€æŸ¥å“åº”æ˜¯å¦æ˜¯ä¸€ä¸ªæ•°ç»„
     if (doc.isArray()) {
         QJsonArray array = doc.array();
 
-        // ¼ì²éÊı×éÊÇ·ñÎª¿Õ£¬ÒÔ¼°µÚÒ»¸öÔªËØÊÇ·ñÊÇÒ»¸öÊı×é
+        // æ£€æŸ¥æ•°ç»„æ˜¯å¦ä¸ºç©ºï¼Œä»¥åŠç¬¬ä¸€ä¸ªå…ƒç´ æ˜¯å¦æ˜¯ä¸€ä¸ªæ•°ç»„
         if (!array.isEmpty() && array.at(0).isArray()) {
             QJsonArray translations = array.at(0).toArray();
 
-            // ¼ì²é·­ÒëÊı×éÊÇ·ñÎª¿Õ£¬ÒÔ¼°Ã¿¸ö·­ÒëÊÇ·ñÊÇÒ»¸öÊı×é
+            // æ£€æŸ¥ç¿»è¯‘æ•°ç»„æ˜¯å¦ä¸ºç©ºï¼Œä»¥åŠæ¯ä¸ªç¿»è¯‘æ˜¯å¦æ˜¯ä¸€ä¸ªæ•°ç»„
             if (!translations.isEmpty() && translations.at(0).isArray()) {
                 QString translatedText;
 
-                // ±éÀú·­ÒëÊı×é£¬ÌáÈ¡Ã¿¸ö·­ÒëÎÄ±¾
+                // éå†ç¿»è¯‘æ•°ç»„ï¼Œæå–æ¯ä¸ªç¿»è¯‘æ–‡æœ¬
                 for (const QJsonValue& value : translations) {
                     QJsonArray translation = value.toArray();
 
-                    // ¼ì²é·­ÒëÊı×éÊÇ·ñ°üº¬×ã¹»µÄÔªËØ£¬²¢ÇÒµÚÒ»¸öÔªËØÊÇ×Ö·û´®ÀàĞÍ
+                    // æ£€æŸ¥ç¿»è¯‘æ•°ç»„æ˜¯å¦åŒ…å«è¶³å¤Ÿçš„å…ƒç´ ï¼Œå¹¶ä¸”ç¬¬ä¸€ä¸ªå…ƒç´ æ˜¯å­—ç¬¦ä¸²ç±»å‹
                     if (translation.size() >= 2 && translation.at(0).isString()) {
-                        // ½«·­ÒëÎÄ±¾Ìí¼Óµ½½á¹û×Ö·û´®ÖĞ
+                        // å°†ç¿»è¯‘æ–‡æœ¬æ·»åŠ åˆ°ç»“æœå­—ç¬¦ä¸²ä¸­
                         translatedText.append(translation.at(0).toString());
                     }
                 }
 
-                // ·µ»ØÌáÈ¡µÄ·­ÒëÎÄ±¾
+                // è¿”å›æå–çš„ç¿»è¯‘æ–‡æœ¬
                 return translatedText;
             }
         }
     }
 
-    // Èç¹û½âÎöÊ§°Ü£¬·µ»Ø¿Õ×Ö·û´®
+    // å¦‚æœè§£æå¤±è´¥ï¼Œè¿”å›ç©ºå­—ç¬¦ä¸²
     return QString();
 }

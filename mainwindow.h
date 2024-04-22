@@ -4,7 +4,10 @@
 #include <QMainWindow>
 #include "ui_mainwindow.h"
 #include "Translation.h"
-#include "TrayIcon.h"
+#include "trayicon.h"
+#include "Settings.h"
+#include "floatingball.h"
+#include "contextmenumanager.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -28,21 +31,26 @@ public:
     ~MainWindow();
 protected:
 //    void resizeEvent(QResizeEvent *event) override;
-
+    void closeEvent(QCloseEvent* event) override;
 private slots:
+    // 响应交换按钮的槽函数
     void on_btnChange_clicked();
-
+    // 响应剪切板内容更新的槽函数
     void updateClipboardContent(const QString&);
-    void translation_finished(const QString&);
-    void exist_text();
+    // 
+    void translationFinished(const QString&);
+    void existText();
 
 signals:
-    void textChanged(const QString& text);
-    void swapBtnClicked(const QString& text);
+    void text_changed(const QString& text);
+    void swap_btn_clicked(const QString& text);
 
 private:
     Ui::MainWindow *ui;
     Translation* __translation;
     TrayIcon* __trayicon;
+    Settings* __settings;
+    FloatingBall* __floatingBall;                       // 悬浮球
+    ContextMenuManager *__contextMenuManager;           // 右键菜单管理器
 };
 #endif // MAINWINDOW_H

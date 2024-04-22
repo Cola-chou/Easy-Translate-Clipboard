@@ -8,13 +8,13 @@ class Network : public QObject {
     Q_OBJECT
 public:
     explicit Network(QObject *parent = nullptr);
-    void net_translate(const QString& text, int from, int to);
+    void netTranslate(const QString& text, int from, int to);
 
 signals:
-    // ³É¹¦·­ÒëµÄĞÅºÅ
+    // æˆåŠŸç¿»è¯‘çš„ä¿¡å·
     void net_translate_finished(const QString& text, int network_status);
 private:
-    QString net_translate_impl(const QByteArray& resp);
+    QString netTranslateImpl(const QByteArray& resp);
 
 public:
     enum {

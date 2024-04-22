@@ -59,12 +59,18 @@
     <ClCompile Include="mainwindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Translation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Network.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Settings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+=======
+>>>>>>> zhou
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="clipboardmonitor.h">
@@ -73,13 +79,7 @@
     <QtMoc Include="mainwindow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="TrayIcon.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="Translation.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="Network.h">
+    <QtMoc Include="trayicon.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -105,6 +105,6 @@
     </QtRcc>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include=".\clipboard_resource.rc" />
+    <ResourceCompile Include="E:\QT_PROGRAM\Qt5Book\Qt5.9Samp\chap06\clipboard\clipboard_resource.rc" />
   </ItemGroup>
 </Project>
