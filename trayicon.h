@@ -16,6 +16,8 @@ public:
     void setflags(bool);
 
 signals:
+    void listen_clipboard_toggled(bool);
+    void open_floatingBall_toggled(bool);
     void show_window();
     void close_window();
     void hide_window();
@@ -23,6 +25,8 @@ signals:
 
 public slots:
     void onTrayIconActivated(QSystemTrayIcon::ActivationReason reason);
+    void onListenClipboardToggled(bool);
+    void onFloatingBallToggled(bool);
     void onShowWindow();
     void onCloseWindow();
     void onSettings();
@@ -32,6 +36,7 @@ private:
     QAction* __actShowWindow;
     QAction* __actExit;
     QAction* __actSettings;
+    QAction* __actFloatingBall;
     bool  flags;
 };
 

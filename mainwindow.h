@@ -4,8 +4,9 @@
 #include <QMainWindow>
 #include "ui_mainwindow.h"
 #include "Translation.h"
-#include "TrayIcon.h"
+#include "trayicon.h"
 #include "Settings.h"
+#include "floatingball.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -48,5 +49,6 @@ private:
     Translation* __translation;
     TrayIcon* __trayicon;
     Settings* __settings;
+    FloatingBall* __floatingBall;
 };
 #endif // MAINWINDOW_H
