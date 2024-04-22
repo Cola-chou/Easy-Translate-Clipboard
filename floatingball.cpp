@@ -4,12 +4,22 @@
 #include <QPainter>
 #include <QMouseEvent>
 #include <QMenu>
+#include <QScreen>
 
-FloatingBall::FloatingBall(QWidget *parent) :
+FloatingBall::FloatingBall(ContextMenuManager *contextMenuManager,QWidget *parent) :
     QWidget(parent),
     ui(new Ui::FloatingBall)
 {
     ui->setupUi(this);
+    // 获取屏幕大小
+    QScreen *screen = QGuiApplication::primaryScreen();
+    QRect screenGeometry = screen->geometry();
+    int screenWidth = screenGeometry.width();
+    int screenHeight = screenGeometry.height();
+    // 设置悬浮球初始位置为屏幕的右下角
+    int windowWidth = width();
+    int windowHeight = height();
+    move(screenWidth-windowWidth*1,screenHeight-windowHeight*3);
 
     // 设置无边框和窗口层级
     setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
@@ -17,6 +27,9 @@ FloatingBall::FloatingBall(QWidget *parent) :
     setAttribute(Qt::WA_TranslucentBackground);
     // 鼠标追踪
     setMouseTracking(true);
+    // 获取右键菜单
+    __contextMenuManager = contextMenuManager;
+    __floatingBallMenu = __contextMenuManager->getMenu();
 }
 
 FloatingBall::~FloatingBall()
@@ -31,7 +44,9 @@ void FloatingBall::paintEvent(QPaintEvent *event)
     painter.setRenderHint(QPainter::Antialiasing);  // 设置抗锯齿，不然会有明显锯齿
     painter.setRenderHint(QPainter::HighQualityAntialiasing); // 可选 用于更高质量的平滑边缘
     ImgRect = QRect(72,72,100,100);
-    painter.drawPixmap(ImgRect,QPixmap(":/images/floatingballImage/linux.png"));
+//    painter.drawPixmap(ImgRect,QPixmap(":/images/floatingballImage/linux.png")); // 后期可替换为二次元
+    painter.drawPixmap(ImgRect,QPixmap(":/images/floatingballImage/xdhs.png")); // 后期可替换为二次元
+    QRect textBoxRect(ImgRect.left() - 120, ImgRect.top(), 200, 200);
     QWidget::paintEvent(event);
 }
 
@@ -42,39 +57,28 @@ void FloatingBall::mousePressEvent(QMouseEvent* event)
         qDebug() << "鼠标左键按下:" << (event->buttons() & Qt::LeftButton);
         // 记录 鼠标点击位置相对于窗口左上角的偏移量。
         m_dragStartPosition = event->globalPos() - this->frameGeometry().topLeft();
-        // qDebug() << "鼠标按下位置:" << m_dragStartPosition;
         event->accept();
     }
     else if(event->buttons() & Qt::RightButton)
     { // 鼠标右键按下
          qDebug() << "鼠标右键按下:" << (event->buttons() & Qt::RightButton);
 
-         // 创建右键菜单
-         QMenu menu(this);
-
-         // 添加 action
-         QAction *openMainAction = menu.addAction("打开主界面");
-         QAction *listenClipboardAction = menu.addAction("监听剪贴板");
-         QAction *settingsAction = menu.addAction("设置");
-         QAction *separatorAction = menu.addSeparator(); // 添加分割线
-         QAction *floatingBallAction = menu.addAction("悬浮球");
-         QAction *quitAction = menu.addAction("退出");
-
-         // 监听 action 的触发
-         connect(openMainAction, &QAction::triggered, this, &FloatingBall::openMain);
-         connect(listenClipboardAction, &QAction::triggered, this, &FloatingBall::listenClipboard);
-         connect(settingsAction, &QAction::triggered, this, &FloatingBall::openSettings);
-         connect(floatingBallAction, &QAction::triggered, this, &FloatingBall::toggleFloatingBall);
-         connect(quitAction, &QAction::triggered, this, &FloatingBall::quitApplication);
-
-         // 显示菜单
-         menu.exec(event->globalPos());
+         // 显示右键菜单
+         __floatingBallMenu->exec(event->globalPos());
     }
-    else if (event->buttons() & Qt::MiddleButton)
+}
+
+void FloatingBall::mouseDoubleClickEvent(QMouseEvent *event)
+{ // 鼠标双击事件
+    if(event->button() == Qt::LeftButton)
     {
-        // 如果左右键同时按下，不做任何操作
-        qDebug() << "鼠标中键按下:" << (event->buttons() & Qt::MiddleButton);
-        event->ignore();
+        qDebug()<<"双击"<<event->pos();
+        showWindowFlags = !showWindowFlags;
+        qDebug()<<"showWindowFlags:"<<showWindowFlags;
+        if(showWindowFlags)
+            emit show_window();
+        else
+            emit hide_window();
     }
 }
 
@@ -108,29 +112,4 @@ void FloatingBall::listening(bool opt)
     else
         if(!isHidden())
             setHidden(true);
-}
-
-void FloatingBall::openMain()
-{
-    // 打开主界面
-}
-
-void FloatingBall::listenClipboard()
-{
-    // 监听剪贴板
-}
-
-void FloatingBall::openSettings()
-{
-    // 打开设置
-}
-
-void FloatingBall::toggleFloatingBall()
-{
-    // 切换悬浮球状态
-}
-
-void FloatingBall::quitApplication()
-{
-    // 退出应用程序
 }

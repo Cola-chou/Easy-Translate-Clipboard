@@ -7,6 +7,7 @@
 #include "trayicon.h"
 #include "Settings.h"
 #include "floatingball.h"
+#include "contextmenumanager.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -49,6 +50,7 @@ private:
     Translation* __translation;
     TrayIcon* __trayicon;
     Settings* __settings;
-    FloatingBall* __floatingBall;
+    FloatingBall* __floatingBall;                       // 悬浮球
+    ContextMenuManager *__contextMenuManager;           // 右键菜单管理器
 };
 #endif // MAINWINDOW_H
