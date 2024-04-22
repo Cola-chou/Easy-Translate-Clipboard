@@ -27,8 +27,8 @@ MainWindow::MainWindow(QWidget* parent)
     connect(__trayicon, &TrayIcon::close_window, QApplication::instance(), &QApplication::quit);
     //connect(__trayicon, &TrayIcon::close_window, this, &MainWindow::close);
     connect(__trayicon, &TrayIcon::hide_window, this, &MainWindow::hide);
-    connect(__trayicon, &TrayIcon::listen_clipboard_toggled, __translation, &Translation::listenClipboardToggled);
     connect(__trayicon, &TrayIcon::open_setting, __settings, &Settings::show);
+    connect(__settings, &Settings::listen_clipboard, __translation, &Translation::listenClipboardToggled);
     connect(__translation, &Translation::translation_finished, this, &MainWindow::translationFinished);
     connect(__translation, &Translation::clipboard_data, this, &MainWindow::updateClipboardContent);
     connect(this, &MainWindow::text_changed, __translation, &Translation::translation);
