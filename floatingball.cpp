@@ -4,12 +4,22 @@
 #include <QPainter>
 #include <QMouseEvent>
 #include <QMenu>
+#include <QScreen>
 
 FloatingBall::FloatingBall(ContextMenuManager *contextMenuManager,QWidget *parent) :
     QWidget(parent),
     ui(new Ui::FloatingBall)
 {
     ui->setupUi(this);
+    // 获取屏幕大小
+    QScreen *screen = QGuiApplication::primaryScreen();
+    QRect screenGeometry = screen->geometry();
+    int screenWidth = screenGeometry.width();
+    int screenHeight = screenGeometry.height();
+    // 设置悬浮球初始位置为屏幕的右下角
+    int windowWidth = width();
+    int windowHeight = height();
+    move(screenWidth-windowWidth*1,screenHeight-windowHeight*3);
 
     // 设置无边框和窗口层级
     setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
@@ -34,7 +44,9 @@ void FloatingBall::paintEvent(QPaintEvent *event)
     painter.setRenderHint(QPainter::Antialiasing);  // 设置抗锯齿，不然会有明显锯齿
     painter.setRenderHint(QPainter::HighQualityAntialiasing); // 可选 用于更高质量的平滑边缘
     ImgRect = QRect(72,72,100,100);
-    painter.drawPixmap(ImgRect,QPixmap(":/images/floatingballImage/linux.png")); // 后期可替换为二次元
+//    painter.drawPixmap(ImgRect,QPixmap(":/images/floatingballImage/linux.png")); // 后期可替换为二次元
+    painter.drawPixmap(ImgRect,QPixmap(":/images/floatingballImage/xdhs.png")); // 后期可替换为二次元
+    QRect textBoxRect(ImgRect.left() - 120, ImgRect.top(), 200, 200);
     QWidget::paintEvent(event);
 }
 
@@ -54,12 +66,20 @@ void FloatingBall::mousePressEvent(QMouseEvent* event)
          // 显示右键菜单
          __floatingBallMenu->exec(event->globalPos());
     }
-//    else if (event->buttons() & Qt::MiddleButton)
-//    {
-//        // 如果左右键同时按下，不做任何操作
-//        qDebug() << "鼠标中键按下:" << (event->buttons() & Qt::MiddleButton);
-//        event->ignore();
-//    }
+}
+
+void FloatingBall::mouseDoubleClickEvent(QMouseEvent *event)
+{ // 鼠标双击事件
+    if(event->button() == Qt::LeftButton)
+    {
+        qDebug()<<"双击"<<event->pos();
+        showWindowFlags = !showWindowFlags;
+        qDebug()<<"showWindowFlags:"<<showWindowFlags;
+        if(showWindowFlags)
+            emit show_window();
+        else
+            emit hide_window();
+    }
 }
 
 void FloatingBall::mouseMoveEvent(QMouseEvent* event)
@@ -92,29 +112,4 @@ void FloatingBall::listening(bool opt)
     else
         if(!isHidden())
             setHidden(true);
-}
-
-void FloatingBall::openMain()
-{
-    // 打开主界面
-}
-
-void FloatingBall::listenClipboard()
-{
-    // 监听剪贴板
-}
-
-void FloatingBall::openSettings()
-{
-    // 打开设置
-}
-
-void FloatingBall::toggleFloatingBall()
-{
-    // 切换悬浮球状态
-}
-
-void FloatingBall::quitApplication()
-{
-    // 退出应用程序
 }

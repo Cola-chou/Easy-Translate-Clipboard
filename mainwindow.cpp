@@ -28,6 +28,10 @@ MainWindow::MainWindow(QWidget* parent)
     connect(__trayicon, &TrayIcon::close_window, QApplication::instance(), &QApplication::quit);
     //connect(__trayicon, &TrayIcon::close_window, this, &MainWindow::close);
     connect(__trayicon, &TrayIcon::hide_window, this, &MainWindow::hide);
+
+    connect(__floatingBall, &FloatingBall::show_window, this, &MainWindow::show);
+    connect(__floatingBall, &FloatingBall::hide_window, this, &MainWindow::hide);
+
     connect(__trayicon, &TrayIcon::listen_clipboard_toggled, __translation, &Translation::listenClipboardToggled);
     connect(__trayicon, &TrayIcon::open_setting, __settings, &Settings::show);
     connect(__trayicon,&TrayIcon::open_floatingBall_toggled,__floatingBall,&FloatingBall::listening);

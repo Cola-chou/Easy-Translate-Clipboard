@@ -13,6 +13,7 @@ class FloatingBall : public QWidget
 protected:
     void paintEvent(QPaintEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
+    void mouseDoubleClickEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
 
@@ -28,12 +29,11 @@ private:
     QPoint m_dragStartPosition;                                 //
     QRect ImgRect;                                              // 图片尺寸
     int  ImgRedius = 0;                                         // 图片圆半径
-    bool m_mouseEventsEnabled = true;                           //mousepressEvent禁用开启标志
-    void openMain();
-    void listenClipboard();
-    void openSettings();
-    void toggleFloatingBall();
-    void quitApplication();
+    bool m_mouseEventsEnabled = true;                           // mousepressEvent禁用开启标志
+    bool showWindowFlags = false;                                   // 是否显示文本框
+signals:
+    void show_window();                              // 显示主窗口信号
+    void hide_window();                              // 隐藏主窗口信号
 };
 
 #endif // FLOATINGBALL_H
