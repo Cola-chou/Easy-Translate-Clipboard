@@ -9,7 +9,6 @@ TrayIcon::TrayIcon(QObject*parent) : QObject(parent)
     __trayIcon = new QSystemTrayIcon(this);
     // 创建菜单事件
     __actShowWindow = new QAction("打开主界面", this);
-    __actListenClipboard = new QAction("监听剪贴板", this);
     __actSettings = new QAction("设置", this);
     //__actListenClipboard->setCheckable(true);
     //__actListenClipboard->setChecked(true);
@@ -29,7 +28,6 @@ TrayIcon::TrayIcon(QObject*parent) : QObject(parent)
     connect(__trayIcon, &QSystemTrayIcon::activated, this, &TrayIcon::onTrayIconActivated);
     connect(__actShowWindow, &QAction::triggered,this, &TrayIcon::onShowWindow);
     connect(__actExit, &QAction::triggered,this, &TrayIcon::onCloseWindow);
-    connect(__actListenClipboard, &QAction::toggled, this, &TrayIcon::onListenClipboardToggled);
     connect(__actSettings, &QAction::triggered, this, &TrayIcon::onSettings);
 }
 
@@ -70,9 +68,6 @@ void TrayIcon::onTrayIconActivated(QSystemTrayIcon::ActivationReason action) {
     }
 }
 
-void TrayIcon::onListenClipboardToggled(bool opt) {
-    emit listen_clipboard_toggled(opt);
-}
 
 void TrayIcon::onShowWindow() {
     flags = true;

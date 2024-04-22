@@ -12,3 +12,4 @@
 /clipboard_resource.rc
 /ui_mainwindow.h
 /.vs
+*.user
