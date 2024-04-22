@@ -63,6 +63,10 @@ void TrayIcon::onFloatingBallToggled(bool opt)
     emit open_floatingBall_toggled(opt);
 }
 
+void TrayIcon::onListenClipboardToggled(bool opt) {
+    emit listen_clipboard_toggled(opt);
+}
+
 void TrayIcon::onShowWindow() {
     flags = true;
     emit show_window();
