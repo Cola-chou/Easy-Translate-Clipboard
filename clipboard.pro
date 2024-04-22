@@ -21,7 +21,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     Network.cpp \
     Settings.cpp \
-    Singleton.cpp \
+    #Singleton.cpp \
     Translation.cpp \
     TrayIcon.cpp \
     clipboardmonitor.cpp \
@@ -33,7 +33,7 @@ SOURCES += \
 HEADERS += \
     Network.h \
     Settings.h \
-    Singleton.hpp \
+    #Singleton.hpp \
     Translation.h \
     clipboardmonitor.h \
     contextmenumanager.h \
