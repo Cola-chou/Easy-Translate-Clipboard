@@ -6,12 +6,13 @@
 #include <QSystemTrayIcon>
 #include <QMenu>
 #include <QAction>
+#include "contextmenumanager.h"
 
 class TrayIcon : public QObject
 {
     Q_OBJECT
 public:
-    explicit TrayIcon(QObject* parent = nullptr);
+    explicit TrayIcon(ContextMenuManager *contextMenuManager,QObject* parent = nullptr);
     void showTrayIcon();
     void setflags(bool);
 
@@ -32,6 +33,7 @@ public slots:
     void onSettings();
 private:
     QSystemTrayIcon* __trayIcon;
+    ContextMenuManager *__contextMenuManager;       // 右键菜单管理器
     QMenu* __trayMenu;
     QAction* __actShowWindow;
     QAction* __actListenClipboard;

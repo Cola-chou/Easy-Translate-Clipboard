@@ -1,6 +1,6 @@
 #ifndef FLOATINGBALL_H
 #define FLOATINGBALL_H
-
+#include "contextmenumanager.h"
 #include <QWidget>
 
 namespace Ui {
@@ -17,12 +17,14 @@ protected:
     void mouseReleaseEvent(QMouseEvent *event) override;
 
 public:
-    explicit FloatingBall(QWidget *parent = nullptr);
+    explicit FloatingBall(ContextMenuManager *contextMenuManager,QWidget *parent = nullptr);
     ~FloatingBall();
     void listening(bool opt);
 
 private:
     Ui::FloatingBall *ui;
+    ContextMenuManager *__contextMenuManager;                   // 右键菜单管理器
+    QMenu *__floatingBallMenu;                                  // 右键菜单
     QPoint m_dragStartPosition;                                 //
     QRect ImgRect;                                              // 图片尺寸
     int  ImgRedius = 0;                                         // 图片圆半径

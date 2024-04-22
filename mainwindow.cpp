@@ -16,11 +16,11 @@ MainWindow::MainWindow(QWidget* parent)
 
     ui->textOutPut->setReadOnly(true); // plaintextedit只读
 
-    __trayicon = new TrayIcon(this);
+     __contextMenuManager = new ContextMenuManager();
+    __trayicon = new TrayIcon(__contextMenuManager,this);
     __translation = new Translation(this);
     __settings = new Settings(this);
-    __floatingBall = new FloatingBall();
-
+    __floatingBall = new FloatingBall(__contextMenuManager);
     __translation->initComboBox(ui->cmbInput, Translation::EN_US);
     __translation->initComboBox(ui->cmbOutput, Translation::ZH_CN);
 
