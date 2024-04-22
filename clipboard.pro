@@ -56,7 +56,6 @@ RESOURCES += \
     res.qrc
 
 
-
 #程序版本
 VERSION = 1.0.0.0
 #程序图标

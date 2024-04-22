@@ -16,17 +16,17 @@ public:
 signals:
     void showWindow();
     void closeWindow();
-    void listenClipboard();
+    void listenClipboard(bool opt);
     void openSettings();
-    void toggleFloatingBall();
+    void toggleFloatingBall(bool opt);
     void quitApplication();
 
 private slots:
     void onShowWindowTriggered();
     void onCloseWindowTriggered();
-    void onListenClipboardTriggered();
+    void onListenClipboardToggled(bool opt);
     void onOpenSettingsTriggered();
-    void onToggleFloatingBallTriggered();
+    void onToggleFloatingBallToggled(bool opt);
     void onQuitApplicationTriggered();
 
 private:

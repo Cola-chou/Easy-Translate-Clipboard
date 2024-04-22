@@ -201,9 +201,23 @@
       <ExecutionDescription>Uic'ing %(Identity)...</ExecutionDescription>
       <QtUicDir>$(ProjectDir)</QtUicDir>
       <QtUicFileName>ui_%(Filename).h</QtUicFileName>
+      <Translate>
+      </Translate>
     </QtUic>
+    <CustomBuildStep>
+      <Command>
+      </Command>
+      <Outputs>
+      </Outputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemGroup>
+<<<<<<< HEAD
+    <ClCompile Include="Network.cpp" />
+    <ClCompile Include="Settings.cpp" />
+    <ClCompile Include="Translation.cpp" />
+=======
+>>>>>>> zhou
     <ClCompile Include="TrayIcon.cpp" />
     <ClCompile Include="clipboardmonitor.cpp" />
     <ClCompile Include="main.cpp" />

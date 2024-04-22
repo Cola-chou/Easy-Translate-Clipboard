@@ -15,9 +15,9 @@ ContextMenuManager::ContextMenuManager(QObject *parent) : QObject(parent)
     m_actExit = m_menu->addAction("退出");
 
     connect(m_actShowWindow, &QAction::triggered, this, &ContextMenuManager::onShowWindowTriggered);
-    connect(m_actListenClipboard, &QAction::triggered, this, &ContextMenuManager::onListenClipboardTriggered);
+    connect(m_actListenClipboard, &QAction::toggled, this, &ContextMenuManager::onListenClipboardToggled);
     connect(m_actSettings, &QAction::triggered, this, &ContextMenuManager::onOpenSettingsTriggered);
-    connect(m_actFloatingBall, &QAction::triggered, this, &ContextMenuManager::onToggleFloatingBallTriggered);
+    connect(m_actFloatingBall, &QAction::toggled, this, &ContextMenuManager::onToggleFloatingBallToggled);
     connect(m_actExit, &QAction::triggered, this, &ContextMenuManager::onQuitApplicationTriggered);
 }
 
@@ -36,9 +36,9 @@ void ContextMenuManager::onCloseWindowTriggered()
     emit closeWindow();
 }
 
-void ContextMenuManager::onListenClipboardTriggered()
+void ContextMenuManager::onListenClipboardToggled(bool opt)
 {
-    emit listenClipboard();
+    emit listenClipboard(opt);
 }
 
 void ContextMenuManager::onOpenSettingsTriggered()
@@ -46,9 +46,9 @@ void ContextMenuManager::onOpenSettingsTriggered()
     emit openSettings();
 }
 
-void ContextMenuManager::onToggleFloatingBallTriggered()
+void ContextMenuManager::onToggleFloatingBallToggled(bool opt)
 {
-    emit toggleFloatingBall();
+    emit toggleFloatingBall(opt);
 }
 
 void ContextMenuManager::onQuitApplicationTriggered()

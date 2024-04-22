@@ -2,40 +2,22 @@
 #include "trayicon.h"
 #include <QDebug>
 
-TrayIcon::TrayIcon(QObject*parent) : QObject(parent)
+TrayIcon::TrayIcon(ContextMenuManager *contextMenuManager,QObject*parent) : QObject(parent)
 {
     flags = false;
     // 新建QSystemTrayIcon对象
     __trayIcon = new QSystemTrayIcon(this);
-    // 创建菜单事件
-    __actShowWindow = new QAction("打开主界面", this);
-    __actListenClipboard = new QAction("监听剪贴板", this);
-    __actSettings = new QAction("设置", this);
-    __actFloatingBall = new QAction("悬浮球",this);
-    __actFloatingBall->setCheckable(true);
-    __actFloatingBall->setChecked(true);
-    //__actListenClipboard->setCheckable(true);
-    //__actListenClipboard->setChecked(true);
-    __actExit = new QAction("退出", this);
-    // 创建菜单
-    __trayMenu = new QMenu(nullptr);
-    // 新增一个菜单
-    __trayMenu->addAction(__actShowWindow);
-    __trayMenu->addAction(__actSettings);
-    __trayMenu->addAction(__actFloatingBall);
-    // 增加分割符
-    __trayMenu->addSeparator();
-    // 新增一个菜单
-    __trayMenu->addAction(__actExit);
-    // 给托盘加入菜单
+    // 从右键菜单管理器中获取创建好的右键菜单
+    __contextMenuManager = contextMenuManager;
+    __trayMenu = __contextMenuManager->getMenu();
     __trayIcon->setContextMenu(__trayMenu);
-
+    // 连接右键菜单管理器中的信号
     connect(__trayIcon, &QSystemTrayIcon::activated, this, &TrayIcon::onTrayIconActivated);
-    connect(__actShowWindow, &QAction::triggered,this, &TrayIcon::onShowWindow);
-    connect(__actExit, &QAction::triggered,this, &TrayIcon::onCloseWindow);
-    connect(__actListenClipboard, &QAction::toggled, this, &TrayIcon::onListenClipboardToggled);
-    connect(__actFloatingBall,&QAction::toggled,this,&TrayIcon::onFloatingBallToggled);
-    connect(__actSettings, &QAction::triggered, this, &TrayIcon::onSettings);
+    connect(__contextMenuManager, &ContextMenuManager::showWindow,this, &TrayIcon::onShowWindow);
+    connect(__contextMenuManager, &ContextMenuManager::closeWindow,this, &TrayIcon::onCloseWindow);
+    connect(__contextMenuManager, &ContextMenuManager::listenClipboard, this, &TrayIcon::onListenClipboardToggled);
+    connect(__contextMenuManager,&ContextMenuManager::toggleFloatingBall,this,&TrayIcon::onFloatingBallToggled);
+    connect(__contextMenuManager, &ContextMenuManager::openSettings, this, &TrayIcon::onSettings);
 }
 
 void TrayIcon::showTrayIcon() {
@@ -75,9 +57,6 @@ void TrayIcon::onTrayIconActivated(QSystemTrayIcon::ActivationReason action) {
     }
 }
 
-void TrayIcon::onListenClipboardToggled(bool opt) {
-    emit listen_clipboard_toggled(opt);
-}
 
 void TrayIcon::onFloatingBallToggled(bool opt)
 {

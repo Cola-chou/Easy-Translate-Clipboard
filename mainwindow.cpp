@@ -16,11 +16,11 @@ MainWindow::MainWindow(QWidget* parent)
 
     ui->textOutPut->setReadOnly(true); // plaintextedit只读
 
-    __trayicon = new TrayIcon(this);
+     __contextMenuManager = new ContextMenuManager();
+    __trayicon = new TrayIcon(__contextMenuManager,this);
     __translation = new Translation(this);
     __settings = new Settings(this);
-    __floatingBall = new FloatingBall();
-
+    __floatingBall = new FloatingBall(__contextMenuManager);
     __translation->initComboBox(ui->cmbInput, Translation::EN_US);
     __translation->initComboBox(ui->cmbOutput, Translation::ZH_CN);
 
@@ -28,10 +28,14 @@ MainWindow::MainWindow(QWidget* parent)
     connect(__trayicon, &TrayIcon::close_window, QApplication::instance(), &QApplication::quit);
     //connect(__trayicon, &TrayIcon::close_window, this, &MainWindow::close);
     connect(__trayicon, &TrayIcon::hide_window, this, &MainWindow::hide);
+
+    connect(__floatingBall, &FloatingBall::show_window, this, &MainWindow::show);
+    connect(__floatingBall, &FloatingBall::hide_window, this, &MainWindow::hide);
+
     connect(__trayicon, &TrayIcon::listen_clipboard_toggled, __translation, &Translation::listenClipboardToggled);
     connect(__trayicon, &TrayIcon::open_setting, __settings, &Settings::show);
+    connect(__settings, &Settings::listen_clipboard, __translation, &Translation::listenClipboardToggled);
     connect(__trayicon,&TrayIcon::open_floatingBall_toggled,__floatingBall,&FloatingBall::listening);
-
     connect(__translation, &Translation::translation_finished, this, &MainWindow::translationFinished);
     connect(__translation, &Translation::clipboard_data, this, &MainWindow::updateClipboardContent);
     connect(this, &MainWindow::text_changed, __translation, &Translation::translation);
